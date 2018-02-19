@@ -1,1 +1,1 @@
-# rails training
+# Rails Training
