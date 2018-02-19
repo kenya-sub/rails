@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
+  # layout 'product'
+
   # GET /books
   # GET /books.json
   def index
@@ -10,6 +12,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    # sleep(5)
   end
 
   # GET /books/new
@@ -24,11 +27,30 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
+
+    #ハッシュ値を受け取る
+    # render plain: params[:book].inspect
+    # return
+
+
+    # 個別のアクションでStrongParametersによるフィルター記述
+    #@book = Book.new(params.require(:book).permit(:isbn, :title, :price, :publish, :published, :dl))
+
     @book = Book.new(book_params)
 
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
+   
+        # flashメソッドでの書き換え
+        # format.html {
+        #   flash[:msg] = 'Book was successfully created.'
+        #   redirect_to @book
+        # }
+
+        # info キーでの書き換え
+        # format.html { redirect_to @book, info: 'Book was successfully created.' }
+        
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new }
@@ -40,6 +62,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
+    # sleep 3
     respond_to do |format|
       if @book.update(book_params)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
@@ -55,6 +78,13 @@ class BooksController < ApplicationController
   # DELETE /books/1.json
   def destroy
     @book.destroy
+
+    # destroyをクラスメソッドとして呼び出し
+     #Book.destroy(params[:id])
+
+    # deleteメソッド
+    #Book.delete(params[:id])
+
     respond_to do |format|
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
