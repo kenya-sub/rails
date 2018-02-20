@@ -16,7 +16,7 @@ class RecordController < ApplicationController
 
   def where
     @books = Book.where(publish: '技術評論社')
-    
+
     # whereメソッドでのさまざまな条件式
     #@books = Book.where(publish: '技術評論社', price: 2980)
     #@books = Book.where(published: '2016-06-01'..'2016-12-31')
@@ -24,18 +24,18 @@ class RecordController < ApplicationController
     render 'hello/list'
   end
 
-  def ph1
-    @books = Book.where('publish = ? AND price >= ?',
-      params[:publish], params[:price])
-    render 'hello/list'
-  end
-
-  # 名前付きパラメーターで書き換え
   #def ph1
-  #  @books = Book.where('publish = :publish AND price >= :price',
-  #    publish: params[:publish], price: params[:price])
+  #  @books = Book.where('publish = ? AND price >= ?',
+  #    params[:publish], params[:price])
   #  render 'hello/list'
   #end
+
+  # 名前付きパラメーターで書き換え
+  def ph1
+    @books = Book.where('publish = :publish AND price >= :price',
+      publish: params[:publish], price: params[:price])
+    render 'hello/list'
+  end
 
   def not
     @books = Book.where.not(isbn: params[:id])
@@ -165,7 +165,7 @@ class RecordController < ApplicationController
     # cnt = Book.count
     # cnt = Book.count(:publish)
     # cnt = Book.distinct.count(:publish)
-    
+
     render plain: "#{cnt}件です。"
   end
 
@@ -209,7 +209,7 @@ end
           price: 2500, publish: '技術評論社', published: '2017-05-10'})
         b2.save!
       end
-      
+
       # 分離レベルを設定した場合
       #Book.transaction(isolation: :repeatable_read) do
       #  @book = Book.find(1)
@@ -231,7 +231,7 @@ end
     @search = SearchKeyword.new
   end
 
-  def keywd_process   
+  def keywd_process
     @search = SearchKeyword.new(params.require(:search_keyword).permit(:keyword))
 
     if @search.valid?

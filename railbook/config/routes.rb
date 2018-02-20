@@ -95,7 +95,7 @@ Rails.application.routes.draw do
   # match '/details(/:id)' => 'hello#index', via: [ :get, :post ]
   # get '/details(/:id)' => 'hello#index'
   # post '/details(/:id)' => 'hello#index'
-  
+
   # get 'hello/view'
   # get 'hello/view' => 'hello#view'
   # get '/articles(/:category)' => 'articles#index', defaults: { category: 'general', format: 'xml' }
@@ -183,6 +183,7 @@ Rails.application.routes.draw do
   get 'record/where'
   get 'record/keyword'
   post 'record/ph1'
+  #get 'record/ph1'
   get 'record/not(/:id)' => 'record#not'
   get 'record/where_or'
   get 'record/order'
@@ -278,8 +279,8 @@ Rails.application.routes.draw do
 
   # ルートパラメータ経由でロケールを変更
   # scope "(:locale)", locale: /ja|en|de/ do
-  #   resources :books    
-  #   get 'extra/trans'   
+  #   resources :books
+  #   get 'extra/trans'
   # end
 
    #match '/:locale' => 'books#index', via: [ :get ]
